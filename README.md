@@ -1,27 +1,105 @@
-# Opay-Transaction-Performance-and-Insights
+# OPay Transaction Performance & Insights
 
-##  Executive Summary
-OPay processes millions of transactions daily across multiple channels (Web, App, POS, USSD) and customer types (Individual, Merchant). This project analyzes 5,000 transactions to answer: **What's driving the current 69% success rate, and where are the biggest opportunities across channels, transaction types, and locations?**
+## Executive Summary
 
-##  Tools Used
-- **Excel / WPS Office** — data cleaning, pivot tables, calculated KPIs
-- **Tableau Public** — dashboard design and visualization
+An analysis of 5,000 OPay transactions (₦1.25B total value) across four channels and eight Nigerian cities to identify where transaction performance breaks down and where growth opportunities sit.
 
-##  Process
-1. **Data cleaning**: Started with raw transaction data (12 fields: Transaction ID, Date, Customer ID/Type, Location, Transaction Type, Channel, Amount, Status, Fee, Response Time, Merchant Category)
-2. **KPI calculation**: Built pivot tables to calculate Total Transactions, Total Fees, Total Transaction Value, Average Transaction Value, and Success Rate
-3. **Segmentation**: Broke down performance by transaction status (Failed/Pending/Reversed/Successful), channel (Web/App/POS/USSD), customer type (Individual/Merchant), and location
-4. **Dashboard build**: Connected cleaned data to Tableau and designed KPI cards, bar charts, and ranking tables
+The headline finding: OPay's 69.12% success rate is not caused by one broken process. Failed, Pending, and Reversed transactions each account for roughly 10% of volume independently — meaning three separate fixes are needed, not one. A second finding is that channel usage is almost perfectly even (all four channels within a ₦20M band), so there is no "primary" channel to prioritise. Most actionable: transaction-type preferences shift by city, with Benin City favouring Data purchases while the national Web trend favours Bill Payment — pointing to localised rather than national strategy.
 
-##  Key Findings
-- **Success rate sits at 69.12%** — but failures aren't concentrated in one issue. Failed (503), Pending (542), and Reversed (499) transactions are each roughly 10% of total volume, pointing to three separate friction points rather than one dominant problem.
-- **Individual transactions drive ~80% of total value** (₦1.005B) vs Merchant transactions at ~20% (₦246M).
-- **Channel usage is evenly distributed** — Web, App, POS, and USSD all fall within a tight ₦20M range (₦299M–₦320M), meaning no single channel dominates.
-- **On the Web channel specifically, Bill Payment leads** (₦74.2M) followed by Data purchases (₦68M) — but this shifts locally: in Benin City (the top web location), **Data purchases actually outrank Bill Payment**.
-- **Lagos underperforms on Web transactions**, ranking 6th of 8 cities despite being Nigeria's largest — Benin City, Kaduna, and Abuja all rank higher.
+## Business Problem
 
-##  Recommendation
-Investigate the Failed/Pending/Reversed transaction paths individually rather than as one combined issue, since each represents a distinct ~10% leak. Additionally, city-level differences in transaction type behavior (e.g., Benin City vs Lagos) suggest OPay could benefit from localized product promotions rather than a one-size-fits-all national strategy.
+OPay operates across Web, App, POS, and USSD channels serving both individual and merchant customers. With nearly a third of transactions failing to complete successfully, the business needs to know:
 
-## 📊 Dashboard
-[Link to your Tableau Public dashboard]
+1. What is actually driving the ~31% non-success rate — is it one dominant failure mode or several?
+2. Which channels and customer segments carry the most value, and should resources be concentrated anywhere?
+3. Do transaction behaviours differ by location in ways that would justify regional strategy?
+
+## Dataset
+
+**Source:** OPay transaction records — 5,000 rows, 12 fields.
+
+| Field | Description |
+|---|---|
+| Transaction_ID | Unique transaction identifier |
+| Transaction_Date | Date of transaction (2019–2025) |
+| Customer_ID | Unique customer identifier |
+| Customer_Type | Individual or Merchant |
+| Location | City (8 Nigerian cities) |
+| Transaction_Type | Airtime, Bill Payment, Data, POS Payment, Transfer |
+| Channel | Web, App, POS, USSD |
+| Amount | Transaction value (₦) |
+| Transaction_Status | Successful, Failed, Pending, Reversed |
+| Fee | Fee charged (₦) |
+| Response_Time_Sec | Processing time in seconds |
+| Merchant_Category | Electronics, Fashion, Food & Restaurants (N/A for individuals) |
+
+**Scale:** ₦1,251,725,247 total transaction value · ₦2,503,125 total fees · ₦250,345 average transaction value
+
+## Tools
+
+- **Excel / WPS Office** — data cleaning, pivot tables, KPI calculation
+- **Tableau Public** — dashboard design and visualisation
+
+## Exploratory Data Analysis
+
+**1. Transaction status distribution**
+
+| Status | Count | Share |
+|---|---|---|
+| Successful | 3,456 | 69.1% |
+| Pending | 542 | 10.8% |
+| Failed | 503 | 10.1% |
+| Reversed | 499 | 10.0% |
+
+The three failure states are near-identical in size — an unusual pattern suggesting three independent causes rather than one systemic fault.
+
+**2. Channel distribution (total value)**
+
+| Channel | Value |
+|---|---|
+| WEB | ₦319,922,550 |
+| App | ₦318,381,213 |
+| POS | ₦313,792,978 |
+| USSD | ₦299,628,506 |
+
+A spread of only ₦20M across all four — remarkably even usage.
+
+**3. Customer type split**
+
+Individual customers account for ₦1,005,576,335 (~80%) of total value; merchants ₦246,148,912 (~20%). Within each segment, channel preference again shows minimal variation.
+
+**4. Web channel deep-dive**
+
+Transaction types on Web, ranked: Bill Payment (₦74.2M), Data (₦68M), Transfer (₦63.1M), POS Payment (₦60.2M), Airtime (₦54.3M).
+
+**5. Geographic ranking (Web channel)**
+
+Benin City (₦44.1M), Kaduna (₦43.0M), Abuja (₦42.9M), Kano (₦41.4M), Port Harcourt (₦41.1M), Lagos (₦37.1M), Ibadan (₦35.4M), Enugu (₦35.0M).
+
+**6. City-level drill-down**
+
+Within Benin City, the ranking inverts: Data (₦11.2M) leads, ahead of Bill Payment (₦9.7M) and Airtime (₦9.0M) — the national pattern does not hold locally.
+
+## Key Findings
+
+- **The 69.12% success rate masks three separate ~10% problems.** Failed, Pending, and Reversed are each independently sized, so a single root-cause fix would recover at most a third of lost transactions.
+- **Individual customers drive ~80% of transaction value** (₦1.005B vs ₦246M), making them the dominant revenue segment despite merchants typically being the higher-value account type.
+- **No channel dominates.** All four sit within ₦20M of each other, so channel-level investment decisions cannot be justified on volume alone.
+- **Lagos underperforms on Web**, ranking 6th of 8 cities despite being Nigeria's largest urban market — a gap worth investigating.
+- **Transaction-type preference is location-dependent.** Benin City's leading Web transaction type (Data) differs from the national leader (Bill Payment).
+
+## Recommendations
+
+1. **Treat the three failure states as separate investigations.** Pending transactions likely indicate timeout or settlement delays; Reversed suggests post-authorisation issues; Failed points to validation or connectivity. Each needs its own diagnostic path.
+2. **Investigate the Lagos Web gap.** Underperformance in the largest market suggests either a product-fit issue or an untapped opportunity.
+3. **Localise product promotion.** City-level differences in transaction type mean national campaigns will underperform targeted ones.
+4. **Protect the individual-customer segment**, which carries four-fifths of transaction value.
+
+## Dashboard
+
+[View the interactive dashboard on Tableau Public](ADD_YOUR_LINK_HERE)
+
+## Repository Contents
+
+- `Opay Excel Analysis.xlsx` — raw data and pivot analysis
+- `README.md` — project documentation
