@@ -97,7 +97,7 @@ Within Benin City, the ranking inverts: Data (₦11.2M) leads, ahead of Bill Pay
 
 ## Dashboard
 
-[View the interactive dashboard on Tableau Public](ADD_YOUR_LINK_HERE)
+[View the interactive dashboard on Tableau Public](https://public.tableau.com/app/profile/fechi.iroegbu)
 
 ## Repository Contents
 
