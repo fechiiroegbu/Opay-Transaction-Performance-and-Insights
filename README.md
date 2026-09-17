@@ -58,8 +58,6 @@ Before analysis, the raw transaction data was reviewed and prepared in Excel/WPS
 - **Type formatting:** Ensured `Amount`, `Fee`, and `Response_Time_Sec` were stored as numeric fields (not text) so pivot tables and KPI formulas calculated correctly
 - **Date formatting:** Standardised `Transaction_Date` to a consistent date format for accurate year/month grouping
 
-*(Adjust this section to reflect exactly what you checked/fixed in your workbook — this is a general summary based on the standard steps for a dataset like this.)*
-
 ## Methodology
 
 1. **Load & Inspect** — Reviewed the raw dataset (5,000 rows, 12 fields) in Excel/WPS
