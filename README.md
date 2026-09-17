@@ -48,15 +48,14 @@ OPay operates across Web, App, POS, and USSD channels serving both individual an
 - **Excel / WPS Office** — data cleaning, pivot tables, KPI calculation
 - **Tableau Public** — dashboard design and visualisation
 
-## Data Cleaning
+Data Cleaning
 
-Before analysis, the raw transaction data was reviewed and prepared in Excel/WPS:
+Before analysis, the raw transaction data was reviewed in Excel/WPS:
 
-- **Duplicate check:** Verified each `Transaction_ID` was unique
-- **Missing value check:** Reviewed all 12 fields for blanks, with `Merchant_Category` expected to be blank for Individual customers (not treated as missing data)
-- **Consistency check:** Standardised text fields (e.g., city names, channel names, transaction status labels) to avoid duplicate categories caused by inconsistent casing or spacing
-- **Type formatting:** Ensured `Amount`, `Fee`, and `Response_Time_Sec` were stored as numeric fields (not text) so pivot tables and KPI formulas calculated correctly
-- **Date formatting:** Standardised `Transaction_Date` to a consistent date format for accurate year/month grouping
+Duplicate check: Checked all 5,000 records for duplicate Transaction_ID values — none were found
+Missing value check: Reviewed all 12 fields for blanks — no missing data was found
+
+With the data confirmed clean, it was moved directly into pivot tables and KPI calculations for analysis.
 
 ## Methodology
 
