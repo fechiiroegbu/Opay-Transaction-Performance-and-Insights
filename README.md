@@ -45,7 +45,7 @@ OPay operates across Web, App, POS, and USSD channels serving both individual an
 
 ## Tools
 
-- **Excel / WPS Office** — data cleaning, pivot tables, KPI calculation
+- **Excel  — data cleaning, pivot tables, KPI calculation
 - **Tableau Public** — dashboard design and visualisation
 
 Data Cleaning
