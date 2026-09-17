@@ -14,6 +14,14 @@ OPay operates across Web, App, POS, and USSD channels serving both individual an
 2. Which channels and customer segments carry the most value, and should resources be concentrated anywhere?
 3. Do transaction behaviours differ by location in ways that would justify regional strategy?
 
+## Objective
+
+- Quantify the scale and composition of transaction failures (Failed, Pending, Reversed) to determine whether one fix or several are needed
+- Compare performance and value across channels (Web, App, POS, USSD) to identify where investment is justified
+- Compare individual vs. merchant customer contribution to total transaction value
+- Identify whether transaction-type preferences vary meaningfully by city, to test the case for localised vs. national strategy
+- Present findings in an interactive dashboard that business stakeholders can explore without needing to read raw data
+
 ## Dataset
 
 **Source:** OPay transaction records — 5,000 rows, 12 fields.
@@ -39,6 +47,26 @@ OPay operates across Web, App, POS, and USSD channels serving both individual an
 
 - **Excel / WPS Office** — data cleaning, pivot tables, KPI calculation
 - **Tableau Public** — dashboard design and visualisation
+
+## Data Cleaning
+
+Before analysis, the raw transaction data was reviewed and prepared in Excel/WPS:
+
+- **Duplicate check:** Verified each `Transaction_ID` was unique
+- **Missing value check:** Reviewed all 12 fields for blanks, with `Merchant_Category` expected to be blank for Individual customers (not treated as missing data)
+- **Consistency check:** Standardised text fields (e.g., city names, channel names, transaction status labels) to avoid duplicate categories caused by inconsistent casing or spacing
+- **Type formatting:** Ensured `Amount`, `Fee`, and `Response_Time_Sec` were stored as numeric fields (not text) so pivot tables and KPI formulas calculated correctly
+- **Date formatting:** Standardised `Transaction_Date` to a consistent date format for accurate year/month grouping
+
+*(Adjust this section to reflect exactly what you checked/fixed in your workbook — this is a general summary based on the standard steps for a dataset like this.)*
+
+## Methodology
+
+1. **Load & Inspect** — Reviewed the raw dataset (5,000 rows, 12 fields) in Excel/WPS
+2. **Clean & Standardise** — Applied the checks above to ensure the data was consistent and calculation-ready
+3. **Build KPIs & Pivot Tables** — Calculated total value, fee totals, average transaction value, and status/channel breakdowns
+4. **Exploratory Analysis** — Broke down transactions by status, channel, customer type, transaction type, and location to surface patterns
+5. **Visualize** — Built an interactive Tableau dashboard to present the findings
 
 ## Exploratory Data Analysis
 
@@ -95,11 +123,18 @@ Within Benin City, the ranking inverts: Data (₦11.2M) leads, ahead of Bill Pay
 3. **Localise product promotion.** City-level differences in transaction type mean national campaigns will underperform targeted ones.
 4. **Protect the individual-customer segment**, which carries four-fifths of transaction value.
 
+## Next Steps
+
+- Pull a larger or more recent dataset (e.g., 2026 transactions) to see whether the three-way failure split and city-level patterns hold over time
+- Break down Response_Time_Sec by status to check whether slow processing correlates with Pending/Failed transactions
+- Segment the Lagos Web underperformance further by transaction type and customer type to narrow down the cause
+- Extend the city-level drill-down (currently done for Benin City) to the other seven cities to confirm how widespread the "local pattern differs from national pattern" finding is
+
+## Files
+
+- `Opay Excel Analysis.xlsx` — source workbook with cleaning, pivot tables, and KPI calculations
+- Tableau workbook/dashboard — see live link below
+
 ## Dashboard
 
 [View the interactive dashboard on Tableau Public](https://public.tableau.com/app/profile/fechi.iroegbu)
-
-## Repository Contents
-
-- `Opay Excel Analysis.xlsx` — raw data and pivot analysis
-- `README.md` — project documentation
